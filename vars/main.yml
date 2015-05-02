@@ -1,0 +1,7 @@
+# roles/tftp/vars/main.yml
+---
+
+tftp_packages:
+  - tftp
+
+tftp_service: tftpd
