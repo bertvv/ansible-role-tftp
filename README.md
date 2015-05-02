@@ -1,19 +1,48 @@
 # Ansible role `tftp`
 
-An Ansible role for PURPOSE. Specifically, the responsibilities of this role are to:
+An Ansible role for installing a TFTP (Trivial File Transfer Protocol) server on RHEL/CentOS 7. Specifically, the responsibilities of this role are to:
 
--
+- install the necessary packages
+- manage the configuration
+- manage SELinux settings
+
+For more relevant documentation on TFTP, see:
+
+- [`tftpd(8)` man page](http://linuxmanpages.net/manpages/fedora21/man8/tftpd.8.html)
+- [`tftp_selinux(8)` man page](http://linuxmanpages.net/manpages/fedora21/man8/tftpd_selinux.8.html)
 
 ## Requirements
 
-No specific requirements
+- SELinux is expected to be enabled.
 
 ## Role Variables
 
+The following variables can be set by the administrator:
 
-| Variable   | Required | Default | Comments (type)  |
-| :---       | :---     | :---    | :---             |
-| `role_var` | no       | -       | (scalar) PURPOSE |
+| Variable              | Default             | Comments (type)                                                      |
+| :---                  | :---                | :---                                                                 |
+| `tftp_root_directory` | `/var/lib/tftpboot` | The path to the root directory served by TFTP.                       |
+| `tftp_server_args`    | `--secure`          | Arguments to be passed to the server (except root directory)         |
+|                       |                     | See the `tftpd` man page for details                                 |
+| `tftp_setype`         | `tftpdir_rw_t`      | Default SELinux context for the root directory.                      |
+|                       |                     | Set to `public_content_rw_t` to allow access through other services  |
+| `tftp_anon_write`     | no                  | When set to "yes", `tftp` can modify public files.                   |
+| `tftp_home_dir`       | no                  | When set to "yes", `tftp` can modify files in user home directories. |
+
+The following variables usually should be left alone:
+
+| Variable           | Default                                 | Comments (type)          |
+| :---               | :---                                    | :---                     |
+| `tftp_cps`         | 100 2                                   |                          |
+| `tftp_flags`       | IPv4                                    |                          |
+| `tftp_packages`    | [libsemanage-python, tftp, tftp-server] | Packages to be installed |
+| `tftp_per_source`  | 11                                      |                          |
+| `tftp_protocol`    | udp                                     |                          |
+| `tftp_server`      | `/usr/sbin/in.tftpd`                    |                          |
+| `tftp_service`     | xinetd                                  | Name of the TFTP service |
+| `tftp_socket_type` | dgram                                   |                          |
+| `tftp_user`        | root                                    |                          |
+| `tftp_wait`        | yes                                     |                          |
 
 ## Dependencies
 
