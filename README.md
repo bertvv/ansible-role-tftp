@@ -55,7 +55,19 @@ See the [test playbook](tests/test.yml)
 
 ## Testing
 
-The `tests` directory contains tests for this role in the form of a Vagrant environment. The directory `tests/roles/tftp` is a symbolic link that should point to the root of this project in order to work. To create it, do
+The `tests` directory contains tests for this role in the form of a Vagrant environment. There are two testing playbooks:
+
+- [`test-minimal.yml`](tests/test-minimal.yml) applies the role to a VM, with default settings.
+- [`test.yml`](tests/test.yml) applies the role to a VM, changing some default values. After applying this playbook, you should be able to test the TFTP server, e.g.:
+
+    ```ShellSession
+    $ echo "Hello world" | sudo tee /srv/tftp/test.txt
+    $ tftp 10.0.2.15 -c get test.txt
+    ```
+
+You may want to change the base box into one that you like. The current one is based on Box-Cutter's [CentOS Packer template](https://github.com/boxcutter/centos).
+
+The directory `tests/roles/tftp` is a symbolic link that should point to the root of this project in order to work. To create it, do
 
 ```ShellSession
 $ cd tests/
@@ -63,9 +75,7 @@ $ mkdir roles
 $ ln -frs ../../PROJECT_DIR roles/tftp
 ```
 
-You may want to change the base box into one that you like. The current one is based on Box-Cutter's [CentOS Packer template](https://github.com/boxcutter/centos).
 
-The playbook [`test.yml`](tests/test.yml) applies the role to a VM, setting role variables.
 
 ## Contributing
 
