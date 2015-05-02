@@ -12,7 +12,13 @@ tftp_server_args: "--secure"
 # this alone...
 tftp_disable: "no"
 
+# Default SELinux context. Set this to ‘public_content_t’ or
+# ‘public_content_rw_t’ to serve these files through other services (web,
+# ftp, ...). See man tftpd_selinux(8) for details
 tftp_setype: tftpdir_rw_t
+
+tftp_anon_write: no
+tftp_home_dir: no
 
 tftp_socket_type: "dgram"
 tftp_protocol: "udp"

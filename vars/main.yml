@@ -2,6 +2,7 @@
 ---
 
 tftp_packages:
+  - libsemanage-python
   - tftp
   - tftp-server
 

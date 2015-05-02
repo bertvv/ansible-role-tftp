@@ -16,6 +16,20 @@
     setype: "{{ tftp_setype }}"
   tags: tftp
 
+- name: Ensure SELinux boolean ‘tftp_anon_write’ has the desired value
+  seboolean:
+    name: tftp_anon_write
+    state: "{{ tftp_anon_write }}"
+    persistent: yes
+  tags: tftp
+
+- name: Ensure SELinux boolean ‘tftp_home_dir’ has the desired value
+  seboolean:
+    name: tftp_home_dir
+    state: "{{ tftp_home_dir }}"
+    persistent: yes
+  tags: tftp
+
 - name: Ensure service is started
   service:
     name: "{{ tftp_service }}"
