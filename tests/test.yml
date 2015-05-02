@@ -1,5 +1,15 @@
 ---
 - hosts: all
   sudo: true
+  vars:
+    tftp_root_directory: /srv/tftp
+    tftp_server_args: "--secure --create"
+    tftp_setype: public_content_rw_t
+    tftp_anon_write: yes
+  tasks:
+    - name: Ensure firewall is disabled
+      service:
+        name: firewalld
+        state: stopped
   roles:
     - tftp
