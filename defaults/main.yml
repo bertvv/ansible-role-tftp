@@ -1,4 +1,5 @@
 # roles/tftp/defaults/main.yml
 ---
 
-
+tftp_disable: "no"
+tftp_server_args: "--create --secure /var/lib/tftpboot"

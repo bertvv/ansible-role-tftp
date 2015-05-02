@@ -3,5 +3,5 @@
 
 - name: restart tftp
   service:
-    name: tftpd
+    name: "{{ tftp_service }}"
     state: restarted

@@ -3,5 +3,6 @@
 
 tftp_packages:
   - tftp
+  - tftp-server
 
-tftp_service: tftpd
+tftp_service: xinetd

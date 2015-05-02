@@ -14,3 +14,11 @@
     state: started
     enabled: true
   tags: tftp
+
+- name: Install configuration file
+  template:
+    dest: /etc/xinetd.d/tftp
+    src: etc_xinetd.d_tftp.j2
+  notify:
+    - restart tftp
+  tags: tftp
