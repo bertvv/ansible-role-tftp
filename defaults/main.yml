@@ -1,14 +1,18 @@
 # roles/tftp/defaults/main.yml
 ---
 
-#
-# These are the most important options
-#
-tftp_disable: "no"
+# Root directory of shared files
+tftp_root_directory: /var/lib/tftpboot
 
 # See tftp(8) man page for details on how to set the server arguments
 # http://linux.die.net/man/8/tftpd
-tftp_server_args: "--create --secure /var/lib/tftpboot"
+tftp_server_args: "--secure"
+
+# Changing this to 'yes' will disable TFTP, so you probably want to leave
+# this alone...
+tftp_disable: "no"
+
+tftp_setype: tftpdir_rw_t
 
 tftp_socket_type: "dgram"
 tftp_protocol: "udp"

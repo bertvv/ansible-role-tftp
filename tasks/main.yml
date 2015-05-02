@@ -8,6 +8,14 @@
   with_items: tftp_packages
   tags: tftp
 
+- name: Ensure tftp root directory exists
+  file:
+    path: "{{ tftp_root_directory }}"
+    state: directory
+    owner: "{{ tftp_user }}"
+    setype: "{{ tftp_setype }}"
+  tags: tftp
+
 - name: Ensure service is started
   service:
     name: "{{ tftp_service }}"
