@@ -8,7 +8,7 @@ service tftp
   wait         = {{ tftp_wait }}
   user         = {{ tftp_user }}
   server       = {{ tftp_server }}
-  server_args  = {{ tftp_server_args }}
+  server_args  = {{ tftp_server_args }} {{ tftp_root_directory }}
   disable      = {{ tftp_disable }}
   per_source   = {{ tftp_per_source }}
   cps          = {{ tftp_cps }}
