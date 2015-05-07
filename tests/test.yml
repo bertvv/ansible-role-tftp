@@ -4,6 +4,8 @@
   vars:
     tftp_root_directory: /srv/tftp
     tftp_server_args: "--secure --create"
+    tftp_group: vagrant
+    tftp_mode: "0775"
     tftp_setype: public_content_rw_t
     tftp_anon_write: yes
   tasks:

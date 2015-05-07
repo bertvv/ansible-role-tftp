@@ -13,6 +13,8 @@
     path: "{{ tftp_root_directory }}"
     state: directory
     owner: "{{ tftp_user }}"
+    group: "{{ tftp_group }}"
+    mode: "{{ tftp_mode }}"
     setype: "{{ tftp_setype }}"
   tags: tftp
 

@@ -36,6 +36,8 @@ The following variables usually should be left alone:
 | `tftp_cps`         | 100 2                                   |                                           |
 | `tftp_disable`     | no                                      | When set to 'yes', TFTP will be disabled. |
 | `tftp_flags`       | IPv4                                    |                                           |
+| `tftp_group`       | root                                    | Group of `tftp_root_directory`            |
+| `tftp_mode`        | 0755                                    | Permissions of `tftp_root_directory`      |
 | `tftp_packages`    | [libsemanage-python, tftp, tftp-server] | Packages to be installed                  |
 | `tftp_per_source`  | 11                                      |                                           |
 | `tftp_protocol`    | udp                                     |                                           |
