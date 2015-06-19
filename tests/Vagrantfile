@@ -1,10 +1,21 @@
 # vi: set ft=ruby
 
 require 'rbconfig'
+require 'vagrant/util/template_renderer'
 
-ROLE_NAME = 'tftp'
+# Get role name from whatever this checked out repo dirname is
+ROLE_NAME = File.basename(File.absolute_path( File.join(File.dirname(__FILE__), '..') ))
+PLAYBOOK = 'test.yml'  ## Vagrant template renderer adds '.erb'
 HOST_NAME = 'test' + ROLE_NAME
 VAGRANTFILE_API_VERSION = '2'
+
+erb_vars = { :template_root => File.absolute_path( File.dirname(__FILE__) ), :role_name => ROLE_NAME }
+
+# Render the test.yml.erb file to auto-detect role name
+renderer = Vagrant::Util::TemplateRenderer.new( PLAYBOOK, erb_vars )
+File.open( PLAYBOOK, 'w' ) do |file|
+  file.write( renderer.render )
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'centos71-nocm'
@@ -13,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.network "forwarded_port",  guest: 69, host: 6969, protocol: 'udp'
     node.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'test.yml'
+      ansible.verbose = 'vv'
     end
   end
 end
