@@ -50,7 +50,7 @@
 - name: Install foreman map file
   template:
     dest: /etc/tftpd.map
-    src: tftpd.map.j2
+    src: etc_tftpd.map.j2
   notify:
     - restart tftp
   when: tftp_server_foreman_support
