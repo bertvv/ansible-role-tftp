@@ -19,15 +19,16 @@ For more relevant documentation on TFTP, see:
 
 The following variables can be set by the administrator:
 
-| Variable              | Default             | Comments (type)                                                      |
-| :---                  | :---                | :---                                                                 |
-| `tftp_root_directory` | `/var/lib/tftpboot` | The path to the root directory served by TFTP.                       |
-| `tftp_server_args`    | `--secure`          | Arguments to be passed to the server (except root directory)         |
-|                       |                     | See the `tftpd` man page for details                                 |
-| `tftp_setype`         | `tftpdir_rw_t`      | Default SELinux context for the root directory.                      |
-|                       |                     | Set to `public_content_rw_t` to allow access through other services  |
-| `tftp_anon_write`     | no                  | When set to "yes", `tftp` can modify public files.                   |
-| `tftp_home_dir`       | no                  | When set to "yes", `tftp` can modify files in user home directories. |
+| Variable                      | Default             | Comments (type)                                                      |
+| :---                          | :---                | :---                                                                 |
+| `tftp_root_directory`         | `/var/lib/tftpboot` | The path to the root directory served by TFTP.                       |
+| `tftp_server_args`            | `--secure`          | Arguments to be passed to the server (except root directory)         |
+|                               |                     | See the `tftpd` man page for details                                 |
+| `tftp_server_foreman_support` | false               | Enable Foreman support by creating suitable tftpd.map                |
+| `tftp_setype`                 | `tftpdir_rw_t`      | Default SELinux context for the root directory.                      |
+|                               |                     | Set to `public_content_rw_t` to allow access through other services  |
+| `tftp_anon_write`             | no                  | When set to "yes", `tftp` can modify public files.                   |
+| `tftp_home_dir`               | no                  | When set to "yes", `tftp` can modify files in user home directories. |
 
 The following variables usually should be left alone:
 
@@ -91,3 +92,6 @@ BSD
 
 Bert Van Vreckem (bert.vanvreckem@gmail.com)
 
+Contributions by:
+
+- [@kostyrevaa ](https://github.com/kostyrevaa): Foreman support (v1.2.0)

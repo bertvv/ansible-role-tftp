@@ -31,5 +31,5 @@ tftp_per_source: "11"
 tftp_cps: "100 2"
 tftp_flags: "IPv4"
 
-# Should this role create tftpd.map for Foreman
+# Enable Foreman support by creating suitable tftpd.map
 tftp_server_foreman_support: false
