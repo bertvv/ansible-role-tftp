@@ -61,12 +61,13 @@ See the [test playbook](tests/test.yml)
 The `tests` directory contains tests for this role in the form of a Vagrant environment. There are two testing playbooks:
 
 - [`test-minimal.yml`](tests/test-minimal.yml) applies the role to a VM, with default settings.
-- [`test.yml`](tests/test.yml) applies the role to a VM, changing some default values. After applying this playbook, you should be able to test the TFTP server, e.g.:
+- [`test.yml`](tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
 
     ```ShellSession
-    $ echo "Hello world" | sudo tee /srv/tftp/test.txt
-    $ tftp 10.0.2.15 -c get test.txt
+    $ tftp 127.0.0.1 6969 -c get README
     ```
+
+The TFTP port (69) on the VM is forwarded through the NAT interface to port 6969 on your host system, hence the 127.0.0.1 and port number in the command line.
 
 You may want to change the base box into one that you like. The current one is based on Box-Cutter's [CentOS Packer template](https://github.com/boxcutter/centos).
 

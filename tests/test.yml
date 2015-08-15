@@ -8,10 +8,18 @@
     tftp_mode: "0775"
     tftp_setype: public_content_rw_t
     tftp_anon_write: yes
+    #tftp_home_dir: on
   tasks:
     - name: Ensure firewall is disabled
       service:
         name: firewalld
         state: stopped
+    - name: Put a file in the tftp directory that can be fetched by a client
+      copy:
+        content: Hello world!
+        dest: "{{ tftp_root_directory }}/README"
+        owner: root
+        group: root
+        mode: 0644
   roles:
     - tftp
