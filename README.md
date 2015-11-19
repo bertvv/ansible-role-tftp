@@ -58,10 +58,17 @@ See the [test playbook](tests/test.yml)
 
 ## Testing
 
-The `tests` directory contains tests for this role in the form of a Vagrant environment. There are two testing playbooks:
+Tests for this role are provided in the form of a Vagrant environment that is kept in a separate branch, [tests](https://github.com/bertvv/ansible-role-tftp/tree/tests). I use [git-worktree(1)](https://git-scm.com/docs/git-worktree) to include the test code into the working directory. Instructions for running the tests:
 
-- [`test-minimal.yml`](tests/test-minimal.yml) applies the role to a VM, with default settings.
-- [`test.yml`](tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
+1. Fetch the tests branch: `git fetch origin tests`
+2. Create a Git worktree for the test code: `git worktree add tests tests` (remark: this requires at least Git v2.5.0). This will create a directory `tests/`.
+3. `cd tests/`
+4. `vagrant up` will then create a VM and apply the second of the two available testing playbooks enumerated below.
+
+The test playbooks:
+
+- [`test-minimal.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test-minimal.yml) applies the role to a VM, with default settings (no role variables are set).
+- [`test.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
 
     ```ShellSession
     $ tftp 127.0.0.1 6969 -c get README
@@ -69,17 +76,7 @@ The `tests` directory contains tests for this role in the form of a Vagrant envi
 
 The TFTP port (69) on the VM is forwarded through the NAT interface to port 6969 on your host system, hence the 127.0.0.1 and port number in the command line.
 
-You may want to change the base box into one that you like. The current one is based on Box-Cutter's [CentOS Packer template](https://github.com/boxcutter/centos).
-
-The directory `tests/roles/tftp` is a symbolic link that should point to the root of this project in order to work. To create it, do
-
-```ShellSession
-$ cd tests/
-$ mkdir roles
-$ ln -frs ../../PROJECT_DIR roles/tftp
-```
-
-
+You may want to change the base box into one that you like. The current one, [bertvv/centos71](https://atlas.hashicorp.com/bertvv/boxes/centos71) was generated using a Packer template from the [Boxcutter project](https://github.com/boxcutter/centos) with a few modifications.
 
 ## Contributing
 
