@@ -1,11 +1,17 @@
 # roles/tftp/tasks/main.yml
 ---
 
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags: tftp
+
 - name: Install packages
   yum:
     pkg: "{{ item }}"
     state: installed
-  with_items: tftp_packages
+  with_items: "{{ tftp_packages }}"
   tags: tftp
 
 - name: Ensure tftp root directory exists

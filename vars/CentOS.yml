@@ -4,5 +4,6 @@
 tftp_packages:
   - libsemanage-python
   - tftp-server
+  - xinetd
 
 tftp_service: xinetd
