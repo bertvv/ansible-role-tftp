@@ -32,21 +32,19 @@ The following variables can be set by the administrator:
 
 The following variables usually should be left alone:
 
-| Variable           | Default                                 | Comments (type)                           |
-| :---               | :---                                    | :---                                      |
-| `tftp_cps`         | 100 2                                   |                                           |
-| `tftp_disable`     | no                                      | When set to 'yes', TFTP will be disabled. |
-| `tftp_flags`       | IPv4                                    |                                           |
-| `tftp_group`       | root                                    | Group of `tftp_root_directory`            |
-| `tftp_mode`        | 0755                                    | Permissions of `tftp_root_directory`      |
-| `tftp_packages`    | [libsemanage-python, tftp, tftp-server] | Packages to be installed                  |
-| `tftp_per_source`  | 11                                      |                                           |
-| `tftp_protocol`    | udp                                     |                                           |
-| `tftp_server`      | `/usr/sbin/in.tftpd`                    |                                           |
-| `tftp_service`     | xinetd                                  | Name of the TFTP service                  |
-| `tftp_socket_type` | dgram                                   |                                           |
-| `tftp_user`        | root                                    |                                           |
-| `tftp_wait`        | yes                                     |                                           |
+| Variable           | Default              | Comments (type)                           |
+| :---               | :---                 | :---                                      |
+| `tftp_cps`         | 100 2                |                                           |
+| `tftp_disable`     | no                   | When set to 'yes', TFTP will be disabled. |
+| `tftp_flags`       | IPv4                 |                                           |
+| `tftp_group`       | root                 | Group of `tftp_root_directory`            |
+| `tftp_mode`        | 0755                 | Permissions of `tftp_root_directory`      |
+| `tftp_per_source`  | 11                   |                                           |
+| `tftp_protocol`    | udp                  |                                           |
+| `tftp_server`      | `/usr/sbin/in.tftpd` |                                           |
+| `tftp_socket_type` | dgram                |                                           |
+| `tftp_user`        | root                 |                                           |
+| `tftp_wait`        | yes                  |                                           |
 
 ## Dependencies
 
