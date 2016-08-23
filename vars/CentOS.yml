@@ -1,4 +1,5 @@
-# roles/tftp/vars/main.yml
+# roles/tftp/vars/CentOS.yml
+# Variables specific to the CentOS distribution
 ---
 
 tftp_packages:
@@ -7,3 +8,7 @@ tftp_packages:
   - xinetd
 
 tftp_service: xinetd
+
+tftp_config: /etc/xinetd.d/tftp
+
+tftp_foreman_map_file: /etc/tftpd.map

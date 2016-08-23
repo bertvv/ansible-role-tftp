@@ -47,7 +47,7 @@
 
 - name: Install configuration file
   template:
-    dest: /etc/xinetd.d/tftp
+    dest: "{{ tftp_config }}"
     src: etc_xinetd.d_tftp.j2
   notify:
     - restart tftp
@@ -55,7 +55,7 @@
 
 - name: Install foreman map file
   template:
-    dest: /etc/tftpd.map
+    dest: "{{ tftp_foreman_map_file }}"
     src: etc_tftpd.map.j2
   notify:
     - restart tftp
