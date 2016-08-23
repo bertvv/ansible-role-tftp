@@ -4,6 +4,15 @@ This file contains al notable changes to the tftp Ansible role.
 
 This file adheres to the guidelines of [http://keepachangelog.com/](http://keepachangelog.com/). Versioning follows [Semantic Versioning](http://semver.org/).
 
+## 1.2.1 - 2016-08-23
+
+### Changed
+
+- Fixed package selection, added `xinetd` (was broken in CentOS 7.2)
+- Fixed Ansible 2.0 deprecation warnings and errors
+- Prepared code to enable support of other Linux distributions
+- Moved hard coded values in playbook into vars/
+
 ## 1.2.0 - 2015-08-15
 
 ### Added
