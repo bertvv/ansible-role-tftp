@@ -8,8 +8,8 @@
   tags: tftp
 
 - name: Install packages
-  yum:
-    pkg: "{{ item }}"
+  package:
+    name: "{{ item }}"
     state: installed
   with_items: "{{ tftp_packages }}"
   tags: tftp
