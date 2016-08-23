@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: true
+  become: true
   vars:
     tftp_root_directory: /srv/tftp
     tftp_server_args: "--secure --create"
