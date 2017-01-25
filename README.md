@@ -52,7 +52,7 @@ No dependencies.
 
 ## Example Playbook
 
-See the [test playbook](tests/test.yml)
+See the [test playbook](https://github.com/bertvv/ansible-role-tftp/blob/tests/test.yml)
 
 ## Testing
 
