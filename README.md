@@ -50,10 +50,10 @@ Tests for this role are provided in the form of a Vagrant environment that is ke
 3. `cd tests/`
 4. `vagrant up` will then create a VM and apply the second of the two available testing playbooks enumerated below.
 
-[The](The) test playbooks:
+The test playbooks:
 
-- [`test-minimal.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test-minimal.yml) applies the role to a VM, with default settings (no role variables are set).
-- [`test.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
+- [`test-minimal.yml`](https://github.com/bertvv/ansible-role-tftp/blob/vagrant-tests/test-minimal.yml) applies the role to a VM, with default settings (no role variables are set).
+- [`test.yml`](https://github.com/bertvv/ansible-role-tftp/blob/vagrant-tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
 
     ```ShellSession
     $ tftp 127.0.0.1 6969 -c get README
