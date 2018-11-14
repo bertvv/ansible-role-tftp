@@ -5,10 +5,9 @@
 tftp_packages:
   - libsemanage-python
   - tftp-server
-  - xinetd
 
-tftp_service: xinetd
+tftp_service: tftp.socket
 
-tftp_config: /etc/xinetd.d/tftp
+tftp_config: /usr/lib/systemd/system/tftp.service
 
 tftp_foreman_map_file: /etc/tftpd.map

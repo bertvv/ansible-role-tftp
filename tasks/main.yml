@@ -39,19 +39,19 @@
     persistent: true
   tags: tftp
 
+- name: Install configuration file
+  template:
+    dest: "{{ tftp_config }}"
+    src: systemd_tftp.service.j2
+  notify:
+    - restart tftp
+  tags: tftp
+
 - name: Ensure service is started
   service:
     name: "{{ tftp_service }}"
     state: started
     enabled: true
-  tags: tftp
-
-- name: Install configuration file
-  template:
-    dest: "{{ tftp_config }}"
-    src: etc_xinetd.d_tftp.j2
-  notify:
-    - restart tftp
   tags: tftp
 
 - name: Install foreman map file

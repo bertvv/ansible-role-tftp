@@ -2,6 +2,7 @@
 ---
 
 - name: restart tftp
-  service:
+  systemd:
     name: "{{ tftp_service }}"
+    daemon-reload: true
     state: restarted
