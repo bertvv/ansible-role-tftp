@@ -3,12 +3,17 @@
   become: true
   vars:
     tftp_root_directory: /srv/tftp
-    tftp_server_args: "--secure --create"
-    tftp_group: vagrant
-    tftp_mode: "0775"
+    tftp_server_args: "--secure --create -vvv"
     tftp_setype: public_content_rw_t
-    tftp_anon_write: yes
-    #tftp_home_dir: on
+    tftp_anon_write: true
+  pre_tasks:
+    - name: Install tools
+      package:
+        name: "{{ item }}"
+        state: installed
+      with_items:
+        - tcpdump
+        - tftp
   tasks:
     - name: Ensure firewall is disabled
       service:
@@ -18,8 +23,8 @@
       copy:
         content: Hello world!
         dest: "{{ tftp_root_directory }}/README"
-        owner: root
-        group: root
-        mode: 0644
+        owner: nobody
+        group: nobody
+        mode: 0664
   roles:
     - tftp
