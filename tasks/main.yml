@@ -1,7 +1,8 @@
 # roles/tftp/tasks/main.yml
 ---
 
-- include_vars: "{{ item }}"
+- name: Include distribution specific variables
+  include_vars: "{{ item }}"
   with_first_found:
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
@@ -28,14 +29,14 @@
   seboolean:
     name: tftp_anon_write
     state: "{{ tftp_anon_write }}"
-    persistent: yes
+    persistent: true
   tags: tftp
 
 - name: Ensure SELinux boolean ‘tftp_home_dir’ has the desired value
   seboolean:
     name: tftp_home_dir
     state: "{{ tftp_home_dir }}"
-    persistent: yes
+    persistent: true
   tags: tftp
 
 - name: Ensure service is started

@@ -17,8 +17,8 @@ tftp_disable: "no"
 # ftp, ...). See man tftpd_selinux(8) for details
 tftp_setype: tftpdir_rw_t
 
-tftp_anon_write: no
-tftp_home_dir: no
+tftp_anon_write: false
+tftp_home_dir: false
 
 tftp_socket_type: "dgram"
 tftp_protocol: "udp"
