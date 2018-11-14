@@ -19,32 +19,19 @@ For more relevant documentation on TFTP, see:
 
 The following variables can be set by the administrator:
 
-| Variable                      | Default             | Comments (type)                                                      |
-| :---                          | :---                | :---                                                                 |
-| `tftp_root_directory`         | `/var/lib/tftpboot` | The path to the root directory served by TFTP.                       |
-| `tftp_server_args`            | `--secure`          | Arguments to be passed to the server (except root directory)         |
-|                               |                     | See the `tftpd` man page for details                                 |
-| `tftp_server_foreman_support` | false               | Enable Foreman support by creating suitable tftpd.map                |
-| `tftp_setype`                 | `tftpdir_rw_t`      | Default SELinux context for the root directory.                      |
-|                               |                     | Set to `public_content_rw_t` to allow access through other services  |
-| `tftp_anon_write`             | no                  | When set to "yes", `tftp` can modify public files.                   |
-| `tftp_home_dir`               | no                  | When set to "yes", `tftp` can modify files in user home directories. |
 
-The following variables usually should be left alone:
-
-| Variable           | Default              | Comments (type)                           |
-| :---               | :---                 | :---                                      |
-| `tftp_cps`         | 100 2                |                                           |
-| `tftp_disable`     | no                   | When set to 'yes', TFTP will be disabled. |
-| `tftp_flags`       | IPv4                 |                                           |
-| `tftp_group`       | root                 | Group of `tftp_root_directory`            |
-| `tftp_mode`        | 0755                 | Permissions of `tftp_root_directory`      |
-| `tftp_per_source`  | 11                   |                                           |
-| `tftp_protocol`    | udp                  |                                           |
-| `tftp_server`      | `/usr/sbin/in.tftpd` |                                           |
-| `tftp_socket_type` | dgram                |                                           |
-| `tftp_user`        | root                 |                                           |
-| `tftp_wait`        | yes                  |                                           |
+| Variable                      | Default                              | Comments (type)                                                |
+| :---                          | :---                                 | :---                                                           |
+| `tftp_anon_write`             | false                                | Boolean that specifies whether SELinux allows modifying files. |
+| `tftp_config`                 | /usr/lib/systemd/system/tftp.service | Path to the systemd unit file for tftp                         |
+| `tftp_group`                  | root                                 | Group of the `tftp_root_directory`                             |
+| `tftp_home_dir`               | false                                | Boolean that specifies whether SELinux                         |
+| `tftp_mode`                   | 0755                                 | Permissions of the `tftp_root_directory`                       |
+| `tftp_root_directory`         | /var/lib/tftpboot                    | The path to the root directory served by tftp.                 |
+| `tftp_server_args`            | --secure                             | Command line arguments to be passed to the server executable   |
+| `tftp_server_foreman_support` | false                                | Enable Foreman support by creating suitable tftpd.map          |
+| `tftp_setype`                 | tftpdir_rw_t                         | SELinux context for the tftp root directory                    |
+| `tftp_user`                   | root                                 | Owner of the `tftp_root_directory`                             |
 
 ## Dependencies
 
@@ -63,7 +50,7 @@ Tests for this role are provided in the form of a Vagrant environment that is ke
 3. `cd tests/`
 4. `vagrant up` will then create a VM and apply the second of the two available testing playbooks enumerated below.
 
-The test playbooks:
+[The](The) test playbooks:
 
 - [`test-minimal.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test-minimal.yml) applies the role to a VM, with default settings (no role variables are set).
 - [`test.yml`](https://github.com/bertvv/ansible-role-tftp/blob/tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
@@ -73,8 +60,6 @@ The test playbooks:
     ```
 
 The TFTP port (69) on the VM is forwarded through the NAT interface to port 6969 on your host system, hence the 127.0.0.1 and port number in the command line.
-
-You may want to change the base box into one that you like. The current one, [bertvv/centos71](https://atlas.hashicorp.com/bertvv/boxes/centos71) was generated using a Packer template from the [Boxcutter project](https://github.com/boxcutter/centos) with a few modifications.
 
 ## Contributing
 
