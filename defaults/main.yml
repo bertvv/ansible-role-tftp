@@ -19,7 +19,6 @@ tftp_home_dir: false
 tftp_user: "root"
 tftp_group: "root"
 tftp_mode: "0755"
-tftp_server: "/usr/sbin/in.tftpd"
 
 # Enable Foreman support by creating suitable tftpd.map
 tftp_server_foreman_support: false
