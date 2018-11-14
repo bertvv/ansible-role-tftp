@@ -4,6 +4,16 @@ This file contains al notable changes to the tftp Ansible role.
 
 This file adheres to the guidelines of [http://keepachangelog.com/](http://keepachangelog.com/). Versioning follows [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 - 2018-11-14
+
+### Changed
+
+- Fixed yamllint warnings
+
+### Removed
+
+- (GH-9) No longer install xinetd as a wrapper service. The associated role variables are also removed.
+
 ## 1.2.1 - 2016-08-23
 
 ### Changed
