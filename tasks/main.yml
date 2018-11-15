@@ -8,6 +8,13 @@
     - "{{ ansible_os_family }}.yml"
   tags: tftp
 
+- name: Configure SELinux if it is active on the system
+  include_tasks: selinux.yml
+  when: >
+    ansible_selinux is defined
+    and ansible_selinux != false
+    and ansible_selinux.status == 'enabled'
+
 - name: Install packages
   package:
     name: "{{ item }}"
@@ -23,20 +30,6 @@
     group: "{{ tftp_group }}"
     mode: "{{ tftp_mode }}"
     setype: "{{ tftp_setype }}"
-  tags: tftp
-
-- name: Ensure SELinux boolean ‘tftp_anon_write’ has the desired value
-  seboolean:
-    name: tftp_anon_write
-    state: "{{ tftp_anon_write }}"
-    persistent: true
-  tags: tftp
-
-- name: Ensure SELinux boolean ‘tftp_home_dir’ has the desired value
-  seboolean:
-    name: tftp_home_dir
-    state: "{{ tftp_home_dir }}"
-    persistent: true
   tags: tftp
 
 - name: Install configuration file

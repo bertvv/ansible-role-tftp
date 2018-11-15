@@ -1,0 +1,23 @@
+# roles/tftp/tasks/selinux.yml
+---
+
+- name: Ensure SELinux boolean ‘tftp_anon_write’ has the desired value
+  seboolean:
+    name: tftp_anon_write
+    state: "{{ tftp_anon_write }}"
+    persistent: true
+  tags: tftp
+
+- name: Ensure SELinux boolean ‘tftp_home_dir’ has the desired value
+  seboolean:
+    name: tftp_home_dir
+    state: "{{ tftp_home_dir }}"
+    persistent: true
+  tags: tftp
+
+- name: Set the default SELinux file context for the tftp root dir
+  sefcontext:
+    target: '{{ tftp_root_directory }}(/.*)?'
+    setype: '{{ tftp_setype }}'
+    state: present
+  tags: tftp

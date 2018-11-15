@@ -13,7 +13,7 @@ For more relevant documentation on TFTP, see:
 
 ## Requirements
 
-- SELinux is expected to be enabled.
+none.
 
 ## Role Variables
 
