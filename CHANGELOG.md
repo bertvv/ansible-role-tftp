@@ -4,6 +4,17 @@ This file contains al notable changes to the tftp Ansible role.
 
 This file adheres to the guidelines of [http://keepachangelog.com/](http://keepachangelog.com/). Versioning follows [Semantic Versioning](http://semver.org/).
 
+## 2.0.1 - 2018-11-15
+
+### Added
+
+- Support for Fedora
+
+### Changed
+
+- SELinux-specific settings will now only be applied on systems where SELinux is active
+- Added Docker test environment and automated tests on Travis-CI
+
 ## 2.0.0 - 2018-11-14
 
 ### Changed
