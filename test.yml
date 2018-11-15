@@ -6,6 +6,7 @@
     tftp_server_args: "--secure --create -vvv"
     tftp_setype: public_content_rw_t
     tftp_anon_write: true
+    tftp_user: vagrant
   pre_tasks:
     - name: Install tools
       package:
