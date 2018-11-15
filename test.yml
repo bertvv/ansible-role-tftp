@@ -1,7 +1,35 @@
-# Test playbook for Ansible role bertvv.tftp
 ---
-
 - hosts: all
   become: true
+  vars:
+    tftp_root_directory: /srv/tftp
+    tftp_server_args: "--secure --create -vvv"
+    tftp_setype: public_content_rw_t
+    tftp_anon_write: true
+    tftp_user: tftp
+    tftp_group: tftp
+    tftp_mode: '1777'
+  pre_tasks:
+    - name: Install tools
+      package:
+        name: "{{ item }}"
+        state: installed
+      with_items:
+        - tcpdump
+        - tftp
+    - name: Create user
+      user:
+        name: tftp
+        home: '{{ tftp_root_directory }}'
+        shell: '/sbin/nologin'
+        system: true
+  post_tasks:
+    - name: Put a file in the tftp directory that can be fetched by a client
+      copy:
+        content: Hello world!
+        dest: "{{ tftp_root_directory }}/README"
+        owner: tftp
+        group: tftp
+        mode: 0664
   roles:
     - role_under_test
