@@ -32,9 +32,15 @@
     setype: "{{ tftp_setype }}"
   tags: tftp
 
-- name: Install configuration file
+- name: Install systemd socket file
   template:
-    dest: "{{ tftp_config }}"
+    dest: "{{ tftp_systemd_socket }}"
+    src: systemd_tftp.socket.j2
+  tags: tftp
+
+- name: Install systemd service file
+  template:
+    dest: "{{ tftp_systemd_service }}"
     src: systemd_tftp.service.j2
   notify:
     - restart tftp
@@ -45,6 +51,7 @@
     name: "{{ tftp_service }}"
     state: started
     enabled: true
+    daemon_reload: true
   tags: tftp
 
 - name: Install foreman map file
