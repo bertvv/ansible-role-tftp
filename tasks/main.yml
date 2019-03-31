@@ -18,7 +18,7 @@
 - name: Install packages
   package:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items: "{{ tftp_packages }}"
   tags: tftp
 
