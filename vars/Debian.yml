@@ -1,7 +1,7 @@
 ---
 
 tftp_packages:
-  - tftpd
+  - tftpd-hpa
 
 tftp_service: tftp.service
 
