@@ -46,14 +46,6 @@
     - restart tftp
   tags: tftp
 
-- name: Ensure service is started
-  service:
-    name: "{{ tftp_service }}"
-    state: started
-    enabled: true
-    daemon_reload: true
-  tags: tftp
-
 - name: Install foreman map file
   template:
     dest: "{{ tftp_foreman_map_file }}"
