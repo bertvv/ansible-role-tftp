@@ -9,6 +9,7 @@ tftp_packages:
 tftp_service: tftp.socket
 
 tftp_server: /usr/sbin/in.tftpd
-tftp_config: /usr/lib/systemd/system/tftp.service
+tftp_systemd_service: /usr/lib/systemd/system/tftp.service
+tftp_systemd_socket: /user/lib/systemd/system/tftp.socket
 
 tftp_foreman_map_file: /etc/tftpd.map
