@@ -4,6 +4,7 @@
 
 tftp_packages:
   - libsemanage-python
+  - policycoreutils-python
   - tftp-server
 
 tftp_service: tftp.socket
