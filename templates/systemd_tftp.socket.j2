@@ -1,0 +1,10 @@
+# TFTP server systemd unit file
+# {{ ansible_managed }}
+[Unit]
+Description=Tftp Server Activation Socket
+
+[Socket]
+ListenDatagram=0.0.0.0:69
+
+[Install]
+WantedBy=sockets.target

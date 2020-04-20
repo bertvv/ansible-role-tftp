@@ -1,0 +1,12 @@
+---
+
+tftp_packages:
+  - tftpd-hpa
+
+tftp_service: tftp.service
+
+tftp_server: /usr/sbin/in.tftpd
+tftp_systemd_socket: /etc/systemd/system/tftp.socket
+tftp_systemd_service: /etc/systemd/system/tftp.service
+
+tftp_foreman_map_file: /etc/tftpd.map

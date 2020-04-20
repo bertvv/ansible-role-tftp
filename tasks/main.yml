@@ -18,7 +18,7 @@
 - name: Install packages
   package:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items: "{{ tftp_packages }}"
   tags: tftp
 
@@ -32,19 +32,18 @@
     setype: "{{ tftp_setype }}"
   tags: tftp
 
-- name: Install configuration file
+- name: Install systemd socket file
   template:
-    dest: "{{ tftp_config }}"
+    dest: "{{ tftp_systemd_socket }}"
+    src: systemd_tftp.socket.j2
+  tags: tftp
+
+- name: Install systemd service file
+  template:
+    dest: "{{ tftp_systemd_service }}"
     src: systemd_tftp.service.j2
   notify:
     - restart tftp
-  tags: tftp
-
-- name: Ensure service is started
-  service:
-    name: "{{ tftp_service }}"
-    state: started
-    enabled: true
   tags: tftp
 
 - name: Install foreman map file
