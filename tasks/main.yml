@@ -15,11 +15,16 @@
     and ansible_selinux != false
     and ansible_selinux.status == 'enabled'
 
+- name: Update apt-get cache
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+
 - name: Install packages
   package:
-    name: "{{ item }}"
-    state: installed
-  with_items: "{{ tftp_packages }}"
+    name: "{{ tftp_packages }}"
+    state: present
   tags: tftp
 
 - name: Ensure tftp root directory exists
@@ -39,6 +44,7 @@
   notify:
     - restart tftp
   tags: tftp
+  when: ansible_os_family == 'RedHat'
 
 - name: Ensure service is started
   service:
