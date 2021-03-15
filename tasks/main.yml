@@ -41,6 +41,7 @@
   template:
     dest: "{{ tftp_config }}"
     src: systemd_tftp.service.j2
+    mode: 0644
   notify:
     - restart tftp
   tags: tftp
@@ -50,6 +51,7 @@
   template:
     dest: "{{ tftp_config }}"
     src: "tftpd_config_debian.j2"
+    mode: 0644
   notify:
     - restart tftp
   tags: tftp
@@ -66,6 +68,7 @@
   template:
     dest: "{{ tftp_foreman_map_file }}"
     src: etc_tftpd.map.j2
+    mode: 0644
   notify:
     - restart tftp
   when: tftp_server_foreman_support
