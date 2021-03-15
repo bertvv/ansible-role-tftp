@@ -1,11 +1,49 @@
 ---
-  - name: Verify
-    hosts: all
-    become: true
-    tasks:
-      - name: Example assert
-        assert:
-          that:
-            - true
+- name: Verify
+  hosts: instance
+  tasks:
+  - name: Populate service facts
+    service_facts:
 
+  - name: ansible_facts.services
+    debug:
+      var: ansible_facts.services
+
+  - name: Assert that tftp.service is installed, enabled and running
+    assert:
+      that:
+        - "'tftpd-hpa.service' in ansible_facts.services"
+        #- "ansible_facts.services['tftpd-hpa.service'].status == 'enabled'" # generated not enabled?
+        - "ansible_facts.services['tftpd-hpa.service'].state == 'running'"
+    
+
+- name: External Verification
+  hosts: verify
+  gather_facts: no
+  tasks:
+    - name: Update Cache
+      apt: 
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install tftp-hpa
+      apt:
+        name: 
+          - tftp-hpa
+
+    - name: Test tftp with tftp-hpa
+      command: tftp "instance" -c get "test.iso"
+      register: tftp_results
+
+    - name: tftp result
+      debug:
+        var: tftp_results
+
+    - fail:
+        msg: 'Download failed: {{ tftp_results.stdout }}'
+      when: tftp_results.stdout != ""
+
+    - fail:
+        msg: 'Download failed: {{ tftp_results.stderr }}'
+      when: tftp_results.stderr != ""      
 ...

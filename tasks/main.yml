@@ -46,6 +46,15 @@
   tags: tftp
   when: ansible_os_family == 'RedHat'
 
+- name: Install configuration file
+  template:
+    dest: "/etc/default/tftpd-hpa"
+    src: "tftpd_config_debian.j2"
+  notify:
+    - restart tftp
+  tags: tftp
+  when: ansible_os_family == 'Debian'
+
 - name: Ensure service is started
   service:
     name: "{{ tftp_service }}"
