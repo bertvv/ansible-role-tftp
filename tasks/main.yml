@@ -48,7 +48,7 @@
 
 - name: Install configuration file
   template:
-    dest: "/etc/default/tftpd-hpa"
+    dest: "{{ tftp_config }}"
     src: "tftpd_config_debian.j2"
   notify:
     - restart tftp
