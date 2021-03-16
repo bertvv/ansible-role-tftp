@@ -1,7 +1,7 @@
 # roles/tftp/defaults/main.yml
 ---
 
-# Root directory of shared files
+# Root directory of shared  files
 tftp_root_directory: /var/lib/tftpboot
 
 # See tftp(8) man page for details on how to set the server arguments
