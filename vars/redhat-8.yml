@@ -1,0 +1,13 @@
+---
+
+tftp_packages:
+  - python3-libsemanage
+  - python3-policycoreutils
+  - tftp-server
+
+tftp_service: tftp.socket
+
+tftp_server: /usr/sbin/in.tftpd
+tftp_config: /usr/lib/systemd/system/tftp.service
+
+tftp_foreman_map_file: /etc/tftpd.map
