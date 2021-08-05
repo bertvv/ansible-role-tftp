@@ -21,9 +21,8 @@ none.
 
 The following variables can be set by the administrator:
 
-
 | Variable                      | Default                              | Comments (type)                                                |
-| :---                          | :---                                 | :---                                                           |
+| :---------------------------- | :----------------------------------- | :------------------------------------------------------------- |
 | `tftp_anon_write`             | false                                | Boolean that specifies whether SELinux allows modifying files. |
 | `tftp_config`                 | /usr/lib/systemd/system/tftp.service | Path to the systemd unit file for tftp                         |
 | `tftp_group`                  | root                                 | Group of the `tftp_root_directory`                             |
@@ -57,9 +56,9 @@ The test playbooks:
 - [`test-minimal.yml`](https://github.com/bertvv/ansible-role-tftp/blob/vagrant-tests/test-minimal.yml) applies the role to a VM, with default settings (no role variables are set).
 - [`test.yml`](https://github.com/bertvv/ansible-role-tftp/blob/vagrant-tests/test.yml) applies the role to a VM, changing some default values. The playbook also puts a file named README into the TFTP root directory. After applying this playbook, you should be able to fetch that file from your host system (assuming the `tftp` client is installed):
 
-    ```ShellSession
-    $ tftp 127.0.0.1 6969 -c get README
-    ```
+  ```ShellSession
+  $ tftp 127.0.0.1 6969 -c get README
+  ```
 
 The TFTP port (69) on the VM is forwarded through the NAT interface to port 6969 on your host system, hence the 127.0.0.1 and port number in the command line.
 
@@ -78,3 +77,4 @@ Bert Van Vreckem (bert.vanvreckem@gmail.com)
 Contributions by:
 
 - [@kostyrevaa ](https://github.com/kostyrevaa): Foreman support (v1.2.0)
+- [@pugnacity ](https://github.com/pugnacity)
