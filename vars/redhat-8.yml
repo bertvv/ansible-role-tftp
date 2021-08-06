@@ -1,7 +1,7 @@
 ---
 tftp_packages:
-  - libsemanage-python
-  - policycoreutils-python
+  - python3-libsemanage
+  - python3-policycoreutils
   - tftp-server
 
 tftp_service: tftp

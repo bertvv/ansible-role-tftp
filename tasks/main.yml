@@ -1,10 +1,11 @@
-# roles/tftp/tasks/main.yml
 ---
-
 - name: Include distribution specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_distribution|lower }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution|lower }}.yml"
+    - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
     - "{{ ansible_os_family }}.yml"
   tags: tftp
 
@@ -15,11 +16,16 @@
     and ansible_selinux != false
     and ansible_selinux.status == 'enabled'
 
+- name: Update apt-get cache
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+
 - name: Install packages
   package:
-    name: "{{ item }}"
-    state: installed
-  with_items: "{{ tftp_packages }}"
+    name: "{{ tftp_packages }}"
+    state: present
   tags: tftp
 
 - name: Ensure tftp root directory exists
@@ -36,9 +42,21 @@
   template:
     dest: "{{ tftp_config }}"
     src: systemd_tftp.service.j2
+    mode: 0644
   notify:
     - restart tftp
   tags: tftp
+  when: ansible_os_family == 'RedHat'
+
+- name: Install configuration file
+  template:
+    dest: "{{ tftp_config }}"
+    src: "tftpd_config_debian.j2"
+    mode: 0644
+  notify:
+    - restart tftp
+  tags: tftp
+  when: ansible_os_family == 'Debian'
 
 - name: Ensure service is started
   service:
@@ -51,9 +69,11 @@
   template:
     dest: "{{ tftp_foreman_map_file }}"
     src: etc_tftpd.map.j2
+    mode: 0644
   notify:
     - restart tftp
   when: tftp_server_foreman_support
   tags:
     - tftp
     - foreman
+...

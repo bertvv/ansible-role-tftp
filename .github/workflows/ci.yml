@@ -1,0 +1,130 @@
+---
+name: CI
+
+'on':
+  push:
+    branches:
+      - 'develop'
+    tags-ignore:
+      - '**'
+
+jobs:
+  linter:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          FILTER_REGEX_EXCLUDE: '.*.md'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu2004
+          - debian10
+          - centos7
+          - centos8
+      fail-fast: false
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Run Molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: 1
+          ANSIBLE_FORCE_COLOR: 1
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+
+  merge:
+    name: Merge to main
+    runs-on: ubuntu-latest
+    needs:
+      - linter
+      - molecule
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: main
+        continue-on-error: true
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs:
+      - merge
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Create a new tag
+        uses: phish108/autotag-action@1.1.37
+        id: autotag
+        with:
+          branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Create a new release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.autotag.outputs.new-tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true  
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Ansible
+        run: pip3 install ansible-base
+
+      - name: Trigger a new import on Galaxy
+        run: >
+          ansible-galaxy role import
+          --token ${{ secrets.GALAXY_API_KEY }}
+          --branch main
+          $(echo ${{ github.repository }} | cut -d/ -f1)
+          $(echo ${{ github.repository }} | cut -d/ -f2)
+
+  notify:
+    name: Slack Notifications
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    needs:
+      - release
+    steps:
+      - name: Notify Slack channel on failure
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://github.com/ckaserer/logos/raw/master/ansible.png
+          SLACK_USERNAME: ${{ github.repository }}
+          SLACK_COLOR: '#ff0033'
+          SLACK_FOOTER: ''
+...
