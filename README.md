@@ -1,6 +1,5 @@
-# Ansible role `tftp`
-
-[![Build Status](https://travis-ci.org/bertvv/ansible-role-tftp.svg?branch=master)](https://travis-ci.org/bertvv/ansible-role-tftp)
+![gplv3](https://img.shields.io/badge/license-GPL%20v3.0-brightgreen.svg?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 An Ansible role for installing a TFTP (Trivial File Transfer Protocol) server on RHEL/CentOS 7. Specifically, the responsibilities of this role are to:
 
@@ -76,5 +75,6 @@ Bert Van Vreckem (bert.vanvreckem@gmail.com)
 
 Contributions by:
 
+- [@ckaserer](https://github.com/ckaserer)
 - [@kostyrevaa ](https://github.com/kostyrevaa): Foreman support (v1.2.0)
 - [@pugnacity ](https://github.com/pugnacity)
