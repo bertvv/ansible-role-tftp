@@ -1,6 +1,7 @@
 # BSD License
 
 Copyright (c) 2014, Bert Van Vreckem, (bert.vanvreckem@gmail.com)
+Copyright (c) 2021, ckaserer
 
 All rights reserved.
 
