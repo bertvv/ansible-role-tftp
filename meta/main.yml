@@ -20,5 +20,10 @@ galaxy_info:
         - xenial
   galaxy_tags:
     - networking
+    - tftp
+    - centos
+    - rhel
+    - ubuntu
+    - debian
 dependencies: []
 ...
