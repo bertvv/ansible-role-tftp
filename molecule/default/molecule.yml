@@ -17,7 +17,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: verify
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest"
+    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     pre_build_image: true
     privileged: yes

@@ -8,6 +8,7 @@
   - name: ansible_facts.services
     debug:
       var: ansible_facts.services
+      verbosity: 2
 
   - name: Assert that tftp.service is installed, enabled and running
     assert:
@@ -15,7 +16,15 @@
         - "'tftpd-hpa.service' in ansible_facts.services"
         #- "ansible_facts.services['tftpd-hpa.service'].status == 'enabled'" # generated not enabled?
         - "ansible_facts.services['tftpd-hpa.service'].state == 'running'"
-    
+    when: ansible_os_family == "Debian"
+
+  - name: Assert that tftp.service is installed, enabled and running
+    assert:
+      that:
+        - "'tftp.service' in ansible_facts.services"
+        #- "ansible_facts.services['tftp.service'].status == 'enabled'" # generated not enabled?
+        - "ansible_facts.services['tftp.service'].state == 'running'"
+    when: ansible_os_family == "RedHat"
 
 - name: External Verification
   hosts: verify
