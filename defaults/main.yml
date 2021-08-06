@@ -1,6 +1,4 @@
-# roles/tftp/defaults/main.yml
 ---
-
 # Root directory of shared  files
 tftp_root_directory: /var/lib/tftpboot
 
@@ -22,3 +20,4 @@ tftp_mode: "0755"
 
 # Enable Foreman support by creating suitable tftpd.map
 tftp_server_foreman_support: false
+...

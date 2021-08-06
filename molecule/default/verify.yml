@@ -19,6 +19,7 @@
 
 - name: External Verification
   hosts: verify
+  become: true
   gather_facts: no
   tasks:
     - name: Update Cache

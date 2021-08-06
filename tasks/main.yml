@@ -1,4 +1,3 @@
-# roles/tftp/tasks/main.yml
 ---
 - name: Include distribution specific variables
   include_vars: "{{ item }}"
@@ -77,3 +76,4 @@
   tags:
     - tftp
     - foreman
+...

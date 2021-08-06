@@ -1,5 +1,4 @@
 ---
-
 tftp_packages:
   - python3-semanage
   - policycoreutils-python-utils
@@ -11,3 +10,4 @@ tftp_server: /usr/sbin/in.tftpd
 tftp_config: /etc/default/tftpd-hpa
 
 tftp_foreman_map_file: /etc/tftpd.map
+...

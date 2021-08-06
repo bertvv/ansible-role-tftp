@@ -1,16 +1,13 @@
 ---
 - name: Converge
   hosts: instance
-
   vars:
     tftp_root_directory: /test/marko
-
   pre_tasks:
     - name: Update apt cache.
       apt: update_cache=yes cache_valid_time=600
       when: ansible_os_family == 'Debian'
       changed_when: false
-
     - name: Create dummy dir
       file:
         path: "{{ tftp_root_directory }}"
@@ -19,7 +16,6 @@
         mode: '0755'
         state: directory
       changed_when: false
-
     - name: Create dummy test file
       file:
         path: "{{ tftp_root_directory }}/test.iso"
@@ -28,8 +24,6 @@
         mode: '0755'
         state: touch
       changed_when: false
-
   roles:
     - role: gepaplexx.tftp
-  
 ...

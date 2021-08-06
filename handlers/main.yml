@@ -1,8 +1,7 @@
-# roles/tftp/handlers/main.yml
 ---
-
 - name: restart tftp
   systemd:
     name: "{{ tftp_service }}"
     daemon-reload: true
     state: restarted
+...
