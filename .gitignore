@@ -11,3 +11,4 @@
 
 # Ignore the tests directories, it's a separate worktree
 *tests
+.env
